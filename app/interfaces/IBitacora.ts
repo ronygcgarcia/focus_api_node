@@ -1,0 +1,15 @@
+export default interface IBitacora {
+  id: number,
+  id_usuario: number,
+  ip_cliente: string,
+  ip_servidor: string,
+  metodo_http: string,
+  request_headers: any,
+  request_uri: string,
+  request_parameters: any,
+  request_content: any,
+  xrd_userid: string,
+  xrd_messageid: 'xrd_messageid',
+  xrd_cliente: 'xrd_cliente',
+  xrd_service: 'xrd_service',
+}
