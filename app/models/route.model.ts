@@ -41,7 +41,7 @@ export default class Route extends Model {
   })
     order: string;
 
-  @BelongsToMany(() => Permission, () => RoutePermission, 'id_ruta', 'id_rol')
+  @BelongsToMany(() => Permission, () => RoutePermission, 'route_id', 'permission_id')
     roles: Permission[];
 
   @CreatedAt

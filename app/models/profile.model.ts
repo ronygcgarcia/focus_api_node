@@ -17,10 +17,10 @@ export default class Profile extends Model {
   })
     name: string;
 
-  @BelongsToMany(() => User, () => ProfileUser, 'id_profile', 'id_user')
+  @BelongsToMany(() => User, () => ProfileUser, 'profile_id', 'user_id')
     users: User[];
 
-  @BelongsToMany(() => Permission, () => ProfilePermission, 'id_profile', 'id_permission')
+  @BelongsToMany(() => Permission, () => ProfilePermission, 'profile_id', 'permission_id')
     permissions: Permission[];
 
   @CreatedAt

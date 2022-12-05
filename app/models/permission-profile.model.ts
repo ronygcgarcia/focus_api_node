@@ -8,9 +8,9 @@ import { Profile, Permission } from '.';
 export default class PermissionProfile extends Model {
   @ForeignKey(() => Profile)
   @Column
-    id_profile: number;
+    profile_id: number;
 
   @ForeignKey(() => Permission)
   @Column
-    id_permission: number;
+    permission_id: number;
 }

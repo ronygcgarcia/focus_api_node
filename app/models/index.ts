@@ -5,6 +5,9 @@ import Permission from './permission.model';
 import Route from './route.model';
 import RoutePermission from './route-permission.model';
 import ProfileUser from './profile-user.model';
+import Checkout from './checkout.model';
+import Genre from './genre.model';
+import Book from './book.model';
 
 export {
   User,
@@ -14,4 +17,7 @@ export {
   Route,
   RoutePermission,
   ProfileUser,
+  Checkout,
+  Genre,
+  Book,
 };

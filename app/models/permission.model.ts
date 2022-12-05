@@ -18,7 +18,7 @@ export default class Permission extends Model {
   })
     name: string;
 
-  @BelongsToMany(() => User, () => ProfileUser, 'id_permission', 'id_user')
+  @BelongsToMany(() => User, () => ProfileUser, 'permission_id', 'user_id')
     users: User[];
 
   @CreatedAt

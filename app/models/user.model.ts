@@ -11,6 +11,18 @@ export default class User extends Model {
   @Column
     id: number;
 
+  @Column({
+    type: DataType.STRING,
+    comment: 'User first name',
+  })
+    first_name: string;
+
+  @Column({
+    type: DataType.STRING,
+    comment: 'User last name',
+  })
+    last_name: string;
+    
   @Unique
   @Column({
     type: DataType.STRING,
@@ -24,7 +36,7 @@ export default class User extends Model {
   })
     password: string;
 
-  @BelongsToMany(() => Profile, () => ProfileUser, 'id_usuario', 'id_perfil')
+  @BelongsToMany(() => Profile, () => ProfileUser, 'user_id', 'profile_id')
     profiles: Profile[];
 
   @CreatedAt
