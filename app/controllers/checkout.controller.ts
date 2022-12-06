@@ -1,22 +1,36 @@
+import { plainToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { Inject, Service } from 'typedi';
 import HttpCode from '../../configs/httpCode';
+import { CheckoutIndexDto } from '../dto/checkout/checkout-index.dto';
 import CheckoutService from '../services/checkout.service';
+import PermissionService from '../services/permission.service';
 
 
 @Service()
 export default class CheckoutController {
   checkoutService: CheckoutService;
 
+  permissionService: PermissionService;
+
   constructor(
   @Inject()
     checkoutService: CheckoutService,
+    permissionService: PermissionService,
   ) {
-    this.checkoutService = checkoutService;    
+    this.checkoutService = checkoutService;   
+    this.permissionService = permissionService; 
   }
 
   async index(req: Request, res: Response) {
-    const checkouts = await this.checkoutService.index(req.user.id, req.query);
+    const { user_id: userId }  = req.query;
+    
+    const isGranted = await this.permissionService.checkUserPermission(req.user.id, 'ROLE_CHECKOUT_USER');
+    let filter;
+    if (isGranted && userId) filter = userId;
+    else filter = req.user.id;
+
+    const checkouts = await this.checkoutService.index(Number(filter));
     return res.status(HttpCode.HTTP_OK).json(checkouts);
   }
 

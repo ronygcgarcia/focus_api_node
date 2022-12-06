@@ -32,16 +32,13 @@ export default class CheckoutService  {
     this.permissionService = permissionService;    
   }
  
-  async index(userId: number, query: CheckoutIndexDto) {
-    const filter: CheckoutIndexDto = plainToClass(CheckoutIndexDto, query, {
-      excludeExtraneousValues: true,
-      exposeUnsetFields: false,
-    });
+  async index(userId: number | undefined) {
     
-    const isGranted = await this.permissionService.checkUserPermission(userId, 'ROLE_CHECKOUT_USER');
+    let where;
+    if ( userId ) where = { user_id: userId };
     
     const checkouts = await this.checkoutRepository.findAll({
-      where: isGranted ? { ...filter } : {},
+      where,
       include: [
         {
           required: true,
