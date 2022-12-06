@@ -4,6 +4,7 @@ import dbConfig from '../../configs/db';
 import { Singleton } from '../decorators/singleton';
 import dbms from '../interfaces/IDbms';
 import path from 'path';
+import { Book, Checkout, Genre, Permission, PermissionProfile, Profile, ProfileUser, Route, RoutePermission, User } from '../models';
 
 @Singleton
 export default class Database extends Sequelize {
@@ -16,7 +17,18 @@ export default class Database extends Sequelize {
       port: config.options.db_port,
       dialect: config.motor,
       timezone: process.env.TIMEZONE || '-06:00',
-      models: [path.join(__dirname, '../models/*.model.ts')],
+      models: [
+        Book, 
+        Checkout, 
+        Genre, 
+        PermissionProfile, 
+        Permission,
+        ProfileUser,
+        Profile,
+        RoutePermission,
+        Route,
+        User,
+      ],
       logging(str) {
         if (process.env.DB_LOGGER === 'true') console.log(str);
       },
