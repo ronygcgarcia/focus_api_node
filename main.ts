@@ -7,6 +7,7 @@ import Database from './app/nucleo/Database';
 import NotFoundException from './handlers/NotFoundException';
 import { Sequelize } from 'sequelize-typescript';
 import { generateMigration } from 'sequelize-typescript-model-repository-migration';
+import Handler from './handlers/Handler';
 
 export default class Main {
   server: Server;
@@ -18,6 +19,7 @@ export default class Main {
     this.server.start();
     this.db = new Database();
     this.routes();
+    this.ExceptionConfig();
   }
 
   routes() {
@@ -25,5 +27,9 @@ export default class Main {
     this.server.app.all('*', () => {
       throw new NotFoundException();
     });
+  }
+
+  ExceptionConfig() {
+    this.server.app.use(Handler.handle);
   }
 }

@@ -21,6 +21,11 @@ class UserController {
     const user = await this.userService.createUser(createUserDto);
     return res.status(HttpCode.HTTP_CREATED).json(user);
   }
+
+  async index(req: Request, res: Response) {
+    const users = await this.userService.getUsers();
+    return res.status(HttpCode.HTTP_OK).json(users);
+  }
 }
 
 export default UserController;
