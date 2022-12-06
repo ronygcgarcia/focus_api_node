@@ -1,8 +1,8 @@
-import { Table, Model, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType } from 'sequelize-typescript';
+import { Table, Model, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType, CreatedAt, UpdatedAt } from 'sequelize-typescript';
 import { User, Book } from '.';
 
 @Table({
-  timestamps: false,
+  timestamps: true,
   tableName: 'checkouts',
 })
 export default class Checkout extends Model {
@@ -28,4 +28,10 @@ export default class Checkout extends Model {
   @ForeignKey(() => Book)
   @Column
     book_id: number;
+
+  @CreatedAt
+    created_at: Date;
+
+  @UpdatedAt
+    updated_at: Date;
 }
