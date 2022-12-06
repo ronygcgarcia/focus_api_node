@@ -30,7 +30,7 @@ const Auth = async (req: Request, res: Response, next: NextFunction) => {
 
     next();
   } catch (err) {
-    Handler.handle(err, req, res, next);
+    Handler.handle(err, req, res);
   }
 };
 

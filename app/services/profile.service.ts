@@ -9,13 +9,18 @@ import NotFoundException from '../../handlers/NotFoundException';
 @Service()
 export default class PerfilService  {
   @InjectRepository(Profile)
-  private perfilRepository: Repository<Profile>;
+  private profileRepository: Repository<Profile>;
 
 
   async getPerfil(idProfile: number) {
     if (isNaN(idProfile)) throw new BadRequestException('El parametro debe de ser un id valido');
-    const profile = await this.perfilRepository.findByPk(idProfile);
+    const profile = await this.profileRepository.findByPk(idProfile);
     if (!profile) throw new NotFoundException('No existe un profile con ese id');
     return profile;
+  }
+
+  async getProfiles() {
+    const profiles = await this.profileRepository.findAll();
+    return profiles;
   }
 }

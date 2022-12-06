@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import routesPermissions from './api/permissions';
-import UserController from '../app/controllers/user.controller';
 import Call from '../app/utils/Call';
 import validation from '../app/middlewares/validate-dto';
 import RouteController from '../app/controllers/route.controller';
@@ -9,16 +8,18 @@ import AuthController from '../app/controllers/auth.controller';
 import routesBooks from './api/books';
 import routesCheckout from './api/checkout';
 import routesGenres from './api/genres';
-import { CreateUserDto } from '../app/dto/auth/create-user.dto';
+import routesUser from './api/users';
+import routesProfile from './api/profiles';
 import { LoginDto } from '../app/dto/auth/login.dto';
 
 const router = Router();
 router.post('/v1/login', validation(LoginDto), Call(AuthController, 'login'));
 router.use('/v1/permissions', routesPermissions);
-router.post('/v1/users', validation(CreateUserDto), Call(UserController, 'store'));
+router.use('/v1/users', [Auth], routesUser);
 router.get('/v1/routes', [Auth], Call(RouteController, 'index'));
 router.use('/v1/books', [Auth], routesBooks);
 router.use('/v1/checkouts', [Auth], routesCheckout);
 router.use('/v1/genres', routesGenres);
+router.use('/v1/profiles', routesProfile);
 
 export default router;

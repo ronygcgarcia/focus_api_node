@@ -29,9 +29,11 @@ export default class RouteService  {
 
     const routes = await this.routesRepository.findAll({
       include: {
+        required: true,
         model: this.permissionRepository,
         include: [
           {
+            required: true,
             model: this.profileRepository,
             through: {
               where: {

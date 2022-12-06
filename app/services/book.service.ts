@@ -25,6 +25,9 @@ export default class BookService  {
       where: {
         ...filter,
       },
+      include: {
+        model: this.genreRepository,
+      },
     });
 
     return books;

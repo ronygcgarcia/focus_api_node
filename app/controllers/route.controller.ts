@@ -1,6 +1,7 @@
+
+import 'reflect-metadata';
 import HttpCode from '../../configs/httpCode';
 import { Request, Response } from 'express';
-import 'reflect-metadata';
 import { Inject, Service } from 'typedi';
 import RouteService from '../services/route.service';
 
