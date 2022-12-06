@@ -1,33 +1,8 @@
-import BaseError from './BaseError';
+import { NextFunction, Request, Response } from 'express';
 import HttpCode from '../configs/httpCode';
-import ErrorModel from '../app/nucleo/mongo/error';
-import { Request, Response, NextFunction } from 'express';
-
-type Error = {
-  statusCode: number,
-  message: string,
-  stack: string
-};
+import BaseError from './BaseError';
 
 export default class Handler {
-  static logError(req: Request, err: Error ) {
-    if (req.usuario) {
-      const Error = new ErrorModel({
-        id_bitacora: req.bitacora ? req.bitacora.id : null,
-        codigo: err.statusCode,
-        mensaje: err.message,
-        trace: err.stack,
-        content: err,
-      });
-      Error.save();
-    }
-  }
-
-  static logErrorMiddleware(err: Error, req: Request, res: Response, next: NextFunction) {
-    Handler.logError(req, err);
-    next(err);
-  }
-
   static #responseContent(err: {
     statusCode: number, 
     description: string,
@@ -63,5 +38,19 @@ export default class Handler {
 
   static isOPerationalError(error: BaseError) {
     return error.isOperational;
+  }
+
+  static handle(err: any, req: Request, res: Response, next: NextFunction) {
+    let message = 'Has been ocurred an error';
+    if (err.statusCode) message = err.description;
+    if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') return res.status(HttpCode.HTTP_UNAUTHORIZED).json({ message: 'Unauthorized', stack:  err.stack });
+    const response: {
+      message: string,
+      stack?: string
+    } = {
+      message,
+    };
+    if (process.env.APP_DEBUG === 'true') response.stack = err.stack;
+    return res.status(err.statusCode || HttpCode.HTTP_INTERNAL_SERVER_ERROR).json(response);
   }
 }

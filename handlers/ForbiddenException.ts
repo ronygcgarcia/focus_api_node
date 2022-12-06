@@ -3,7 +3,7 @@ import HttpCode from '../configs/httpCode';
 
 export default class ForbiddenException extends BaseError {
   constructor(
-    description = 'Accion denegada',
+    description = 'Forbidden',
   ) {
     super('FORBIDDEN', HttpCode.HTTP_FORBIDDEN, description);
   }
