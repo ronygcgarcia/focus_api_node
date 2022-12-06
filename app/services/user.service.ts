@@ -4,7 +4,7 @@ import { Repository } from 'sequelize-typescript';
 import ProfileService from './profile.service';
 import { Inject, Service } from 'typedi';
 import InjectRepository from '../decorators/inject-repository';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from '../dto/auth/create-user.dto';
 import Database from '../nucleo/Database';
 import bcrypt from 'bcryptjs';
 import UnprocessableEntityException from '../../handlers/UnprocessableEntityException';

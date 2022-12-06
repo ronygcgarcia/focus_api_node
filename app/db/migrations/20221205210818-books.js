@@ -2,7 +2,7 @@ const psql = require('sequelize');
 
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.createTable('profiles', {
+    await queryInterface.createTable('books', {
       id: {
         type: psql.Sequelize.INTEGER,
         primaryKey: true,
@@ -26,6 +26,10 @@ module.exports = {
       },
       genre_id: {
         type: psql.Sequelize.INTEGER,
+        references: {
+          model: 'genres',
+          key: 'id',
+        },
         allowNull: false,
       },
       publish_year: {
@@ -40,6 +44,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('profiles');
+    await queryInterface.dropTable('books');
   },
 };

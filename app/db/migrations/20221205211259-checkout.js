@@ -18,10 +18,18 @@ module.exports = {
       },
       user_id: {
         type: psql.Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
         allowNull: false,
       },
       book_id: {
         type: psql.Sequelize.INTEGER,
+        references: {
+          model: 'books',
+          key: 'id',
+        },
         allowNull: false,
       },
       created_at: {

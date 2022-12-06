@@ -36,9 +36,9 @@ export default class Book extends Model {
     genre_id: number;
 
   @Column({
-    type: DataType.DATE,
+    type: DataType.INTEGER,
   })
-    publish_year: Date;
+    publish_year: number;
 
   @Column({
     type: DataType.INTEGER,

@@ -3,7 +3,7 @@ import UserService from '../services/user.service';
 import { Request, Response } from 'express';
 import 'reflect-metadata';
 import { Inject, Service } from 'typedi';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from '../dto/auth/create-user.dto';
 
 @Service()
 class UserController {
