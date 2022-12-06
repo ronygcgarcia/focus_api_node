@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { User } from '../models';
+import { Permission, Profile, User } from '../models';
 import { Repository } from 'sequelize-typescript';
 import ProfileService from './profile.service';
 import { Inject, Service } from 'typedi';
@@ -23,6 +23,12 @@ export default class UserService  {
   
   @InjectRepository(User)
   private userRepository: Repository<User>;
+
+  @InjectRepository(Profile)
+  private profileRepository: Repository<Profile>;
+
+  @InjectRepository(Permission)
+  private permissionRepository: Repository<Permission>;
 
   async getUser(idUser: number) {
     const user = this.userRepository.findOne({
@@ -83,5 +89,20 @@ export default class UserService  {
       throw e;
     }
 
+  }
+
+  async getUsers() {
+    const users = await this.userRepository.findAll({
+      include: {
+        model: this.profileRepository,
+        include: [
+          {
+            model: this.permissionRepository,
+          },
+        ],
+      },
+    });
+
+    return users;
   }
 }
