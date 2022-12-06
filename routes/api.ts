@@ -9,6 +9,7 @@ import routesBooks from './api/books';
 import routesCheckout from './api/checkout';
 import routesGenres from './api/genres';
 import routesUser from './api/users';
+import routesProfile from './api/profiles';
 import { LoginDto } from '../app/dto/auth/login.dto';
 
 const router = Router();
@@ -19,5 +20,6 @@ router.get('/v1/routes', [Auth], Call(RouteController, 'index'));
 router.use('/v1/books', [Auth], routesBooks);
 router.use('/v1/checkouts', [Auth], routesCheckout);
 router.use('/v1/genres', routesGenres);
+router.use('/v1/profiles', routesProfile);
 
 export default router;
