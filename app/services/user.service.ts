@@ -35,6 +35,9 @@ export default class UserService  {
       where: {
         id:idUser,
       },
+      include: {
+        model: this.profileRepository,
+      },
     });
 
     return user;

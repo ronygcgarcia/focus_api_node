@@ -4,7 +4,6 @@ import { Repository } from 'sequelize-typescript';
 import { Inject, Service } from 'typedi';
 import InjectRepository from '../decorators/inject-repository';
 import { CheckoutCreateDto } from '../dto/checkout/checkout-create.dto';
-import { CheckoutIndexDto } from '../dto/checkout/checkout-index.dto';
 import { Book, Checkout, User } from '../models';
 import PermissionService from './permission.service';
 import moment from 'moment';
