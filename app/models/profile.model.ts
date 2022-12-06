@@ -1,8 +1,8 @@
 import { Table, Model, DataType, Column, PrimaryKey, CreatedAt, UpdatedAt, Unique, BelongsToMany, BelongsTo, AutoIncrement } from 'sequelize-typescript';
-import { User, ProfileUser, Permission, ProfilePermission } from '.';
+import { User, ProfileUser, Permission, PermissionProfile } from '.';
 
 @Table({
-  timestamps: true,
+  timestamps: false,
   tableName: 'profiles',
 })
 export default class Profile extends Model {
@@ -17,15 +17,9 @@ export default class Profile extends Model {
   })
     name: string;
 
-  @BelongsToMany(() => User, () => ProfileUser, 'id_profile', 'id_user')
+  @BelongsToMany(() => User, () => ProfileUser, 'profile_id', 'user_id')
     users: User[];
 
-  @BelongsToMany(() => Permission, () => ProfilePermission, 'id_profile', 'id_permission')
+  @BelongsToMany(() => Permission, () => PermissionProfile, 'profile_id', 'permission_id')
     permissions: Permission[];
-
-  @CreatedAt
-    created_at: Date;
-
-  @UpdatedAt
-    updated_at: Date;
 }

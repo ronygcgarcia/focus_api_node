@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
- 
+
   @IsString()
   @IsEmail()
   @IsDefined()
@@ -19,15 +19,17 @@ export class CreateUserDto {
   @IsDefined()
     password: string;
 
-  @IsNumber({}, { each: true })
-  @IsArray()
-  @IsOptional()
-  @IsPositive({ each: true })
-    perfiles?: number[];
+  @IsString()
+  @IsDefined()
+    first_name: string;
+
+  @IsString()
+  @IsDefined()
+    last_name: string;
 
   @IsNumber({}, { each: true })
   @IsArray()
   @IsOptional()
   @IsPositive({ each: true })
-    roles?: number[];
+    profiles?: number[];
 }

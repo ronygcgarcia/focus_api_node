@@ -3,14 +3,14 @@ import { Profile, Permission } from '.';
 
 @Table({
   timestamps: false,
-  tableName: 'permissions_profile',
+  tableName: 'permissions_profiles',
 })
 export default class PermissionProfile extends Model {
   @ForeignKey(() => Profile)
   @Column
-    id_profile: number;
+    profile_id: number;
 
   @ForeignKey(() => Permission)
   @Column
-    id_permission: number;
+    permission_id: number;
 }

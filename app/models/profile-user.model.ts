@@ -8,9 +8,9 @@ import { User, Profile } from '.';
 export default class ProfileUser extends Model {
   @ForeignKey(() => User)
   @Column
-    id_user: number;
+    user_id: number;
 
   @ForeignKey(() => Profile)
   @Column
-    id_profile: number;
+    profile_id: number;
 }

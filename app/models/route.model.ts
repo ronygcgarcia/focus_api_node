@@ -1,8 +1,8 @@
-import { Table, Model, DataType, Column, PrimaryKey, CreatedAt, UpdatedAt, Unique, BelongsToMany, BelongsTo, AutoIncrement, HasMany, HasOne, ForeignKey } from 'sequelize-typescript';
+import { Table, Model, DataType, Column, PrimaryKey, BelongsToMany, AutoIncrement } from 'sequelize-typescript';
 import { Permission, RoutePermission } from '.';
 
 @Table({
-  timestamps: true,
+  timestamps: false,
   tableName: 'routes',
 })
 export default class Route extends Model {
@@ -41,12 +41,6 @@ export default class Route extends Model {
   })
     order: string;
 
-  @BelongsToMany(() => Permission, () => RoutePermission, 'id_ruta', 'id_rol')
+  @BelongsToMany(() => Permission, () => RoutePermission, 'route_id', 'permission_id')
     roles: Permission[];
-
-  @CreatedAt
-    created_at: Date;
-
-  @UpdatedAt
-    updated_at: Date;
 }

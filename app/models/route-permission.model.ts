@@ -8,9 +8,9 @@ import { Permission, Route } from '.';
 export default class RoutePermission extends Model {
   @ForeignKey(() => Route)
   @Column
-    id_route: number;
+    route_id: number;
 
   @ForeignKey(() => Permission)
   @Column
-    id_permission: number;
+    permission_id: number;
 }
