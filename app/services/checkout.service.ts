@@ -9,6 +9,8 @@ import { Book, Checkout, User } from '../models';
 import PermissionService from './permission.service';
 import moment from 'moment';
 import BadRequestException from '../../handlers/InternalServerException';
+import { CheckoutReturnDto } from '../dto/checkout/checkout-return.dto';
+import NotFoundException from '../../handlers/NotFoundException';
 
 @Service()
 export default class CheckoutService  {
@@ -72,5 +74,20 @@ export default class CheckoutService  {
     });
 
     return checkoutObj;
+  }
+
+  async setReturned(checkoutId: number, checkout :CheckoutReturnDto) {
+    const checkoutObj = await this.checkoutRepository.findByPk(checkoutId);
+    if (!checkoutObj) throw new NotFoundException('Checkout not found');
+    await this.bookRepository.increment('stock', {
+      where: {
+        id: checkoutObj?.book_id,
+      },
+    });
+    await checkoutObj?.update({
+      status: checkout.status,
+    });
+
+    return true;
   }
 }
