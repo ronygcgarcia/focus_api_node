@@ -1,6 +1,7 @@
 import express from 'express';
 import { createServer } from 'http';
-
+import cors from 'cors';
+import corsConfig from '../../configs/cors';
 class Server {
   app: any;
 
@@ -22,6 +23,7 @@ class Server {
   middlewares() {
     this.app.use(express.static('public'));
     this.app.use(express.json());
+    this.app.use(cors(corsConfig));
   }
 
   start() {
