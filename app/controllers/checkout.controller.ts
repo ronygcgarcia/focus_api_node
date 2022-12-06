@@ -19,4 +19,12 @@ export default class CheckoutController {
     const checkouts = await this.checkoutService.index(req.user.id, req.query);
     return res.status(HttpCode.HTTP_OK).json(checkouts);
   }
+
+  async store(req: Request, res: Response) {
+    await this.checkoutService.create(req.user.id, req.body);
+
+    return res.status(HttpCode.HTTP_CREATED).json({
+      message: 'Books checkout successfully',
+    });
+  }
 }
