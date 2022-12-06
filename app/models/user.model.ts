@@ -1,5 +1,5 @@
-import { Table, Model, DataType, Column, PrimaryKey, CreatedAt, UpdatedAt, Unique, BelongsToMany, AutoIncrement } from 'sequelize-typescript';
-import { Profile, ProfileUser } from '.';
+import { Table, Model, DataType, Column, PrimaryKey, CreatedAt, UpdatedAt, Unique, BelongsToMany, AutoIncrement, HasMany } from 'sequelize-typescript';
+import { Profile, ProfileUser, Checkout } from '.';
 
 @Table({
   timestamps: true,
@@ -38,6 +38,9 @@ export default class User extends Model {
 
   @BelongsToMany(() => Profile, () => ProfileUser, 'user_id', 'profile_id')
     profiles: Profile[];
+
+  @HasMany(() => Checkout, 'user_id')
+    checkouts: Checkout[];
 
   @CreatedAt
     created_at: Date;

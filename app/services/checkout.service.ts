@@ -4,13 +4,19 @@ import { Repository } from 'sequelize-typescript';
 import { Inject, Service } from 'typedi';
 import InjectRepository from '../decorators/inject-repository';
 import { CheckoutIndexDto } from '../dto/checkout/checkout-index.dto';
-import { Checkout } from '../models';
+import { Book, Checkout, User } from '../models';
 import PermissionService from './permission.service';
 
 @Service()
 export default class CheckoutService  {
   @InjectRepository(Checkout)
   private checkoutRepository: Repository<Checkout>;
+
+  @InjectRepository(Book)
+  private bookRepository: Repository<Book>;
+
+  @InjectRepository(User)
+  private userRepository: Repository<User>;
 
   permissionService: PermissionService;
 
@@ -28,10 +34,19 @@ export default class CheckoutService  {
     });
     
     const isGranted = await this.permissionService.checkUserPermission(userId, 'ROLE_CHECKOUT_USER');
-    console.log(isGranted);
     
     const checkouts = await this.checkoutRepository.findAll({
       where: isGranted ? { ...filter } : {},
+      include: [
+        {
+          required: true,
+          model: this.bookRepository,
+        },
+        {
+          required: true,
+          model: this.userRepository,
+        },
+      ],
     });
     return checkouts;
   }

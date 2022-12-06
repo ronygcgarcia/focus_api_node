@@ -1,4 +1,4 @@
-import { Table, Model, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType, CreatedAt, UpdatedAt } from 'sequelize-typescript';
+import { Table, Model, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType, CreatedAt, UpdatedAt, BelongsTo } from 'sequelize-typescript';
 import { User, Book } from '.';
 
 @Table({
@@ -34,4 +34,10 @@ export default class Checkout extends Model {
 
   @UpdatedAt
     updated_at: Date;
+
+  @BelongsTo(()=> Book, 'book_id')
+    book: Book;
+  
+  @BelongsTo(()=> User, 'user_id')
+    user: User;
 }
