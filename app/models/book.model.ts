@@ -1,5 +1,5 @@
-import { Table, Model, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType } from 'sequelize-typescript';
-import { Genre } from '.';
+import { Table, Model, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType, HasMany, BelongsTo } from 'sequelize-typescript';
+import { Genre, Checkout } from '.';
 
 @Table({
   timestamps: false,
@@ -44,4 +44,10 @@ export default class Book extends Model {
     type: DataType.INTEGER,
   })
     stock: number;
+
+  @HasMany(() => Checkout, 'book_id')
+    checkouts: Checkout[];
+  
+  @BelongsTo(() => Genre, 'genre_id')
+    genre: Genre;
 }
