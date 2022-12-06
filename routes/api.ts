@@ -1,12 +1,18 @@
 import { Router } from 'express';
-import routesRoles from './api/rol';
-import UsuarioController from '../app/controllers/usuario.controller';
+import routesPermissions from './api/permissions';
+import UserController from '../app/controllers/user.controller';
 import Call from '../app/utils/Call';
 import validation from '../app/middlewares/validate-dto';
 import { CreateUserDto } from '../app/dto/create-user.dto';
+import RouteController from '../app/controllers/route.controller';
+import Auth from '../app/middlewares/auth';
+import { LoginDto } from '../app/dto/login.dto';
+import AuthController from '../app/controllers/auth.controller';
 
 const router = Router();
-router.use('/v1/roles', routesRoles);
-router.post('/v1/user', validation(CreateUserDto), Call(UsuarioController, 'store'));
+router.post('/v1/login', validation(LoginDto), Call(AuthController, 'login'));
+router.use('/v1/permissions', routesPermissions);
+router.post('/v1/users', validation(CreateUserDto), Call(UserController, 'store'));
+router.get('/v1/routes', [Auth], Call(RouteController, 'index'));
 
 export default router;
