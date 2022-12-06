@@ -27,4 +27,12 @@ export default class CheckoutController {
       message: 'Books checkout successfully',
     });
   }
+
+  async setReturn(req: Request, res: Response) {
+    await this.checkoutService.setReturned(Number(req.params.checkout_id), req.body);
+
+    return res.status(HttpCode.HTTP_OK).json({
+      message: 'Update successfully',
+    });
+  }
 }
