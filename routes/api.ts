@@ -9,6 +9,7 @@ import Auth from '../app/middlewares/auth';
 import { LoginDto } from '../app/dto/auth/login.dto';
 import AuthController from '../app/controllers/auth.controller';
 import routesBooks from './api/books';
+import routesCheckout from './api/checkout';
 
 const router = Router();
 router.post('/v1/login', validation(LoginDto), Call(AuthController, 'login'));
@@ -16,5 +17,6 @@ router.use('/v1/permissions', routesPermissions);
 router.post('/v1/users', validation(CreateUserDto), Call(UserController, 'store'));
 router.get('/v1/routes', [Auth], Call(RouteController, 'index'));
 router.use('/v1/books', [Auth], routesBooks);
+router.use('/v1/checkouts', [Auth], routesCheckout);
 
 export default router;

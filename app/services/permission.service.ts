@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Permission, User } from '../models';
+import { Permission, Profile, User } from '../models';
 import { Repository } from 'sequelize-typescript';
 import { Service } from 'typedi';
 import InjectRepository from '../decorators/inject-repository';
@@ -8,12 +8,15 @@ import BadRequestException from '../../handlers/InternalServerException';
 import NotFoundException from '../../handlers/NotFoundException';
 
 @Service()
-export default class RoleService  {
+export default class PermissionService  {
   @InjectRepository(Permission)
   private permissionRepository: Repository<Permission>;
 
   @InjectRepository(User)
   private userRepository: Repository<User>;
+
+  @InjectRepository(Profile)
+  private profileRepository: Repository<Profile>;
 
   async getPermissions() {
     const permissions = await this.permissionRepository.findAll().catch((e) => {
@@ -26,10 +29,16 @@ export default class RoleService  {
   async checkUserPermission(idUser: number, permission: string) {
     const permissionUser = await this.permissionRepository.findOne({
       include: {
-        model: this.userRepository,
-        where: {
-          id: idUser,
-        },
+        required: true,
+        model: this.profileRepository,
+        include: [
+          {
+            required: true,
+            model: this.userRepository, where: {
+              id: idUser,
+            },
+          },
+        ],
       },
       where: {
         name: permission,
