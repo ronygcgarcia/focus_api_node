@@ -25,6 +25,14 @@ class BookController {
 
     return res.status(HttpCode.HTTP_CREATED).json(book);
   }
+
+  async show(req: Request, res: Response) {
+    const { book_id: bookId } = req.params;
+
+    const book = await this.bookService.show(Number(bookId));
+
+    return res.status(HttpCode.HTTP_OK).json(book);
+  }
 }
 
 export default BookController;
