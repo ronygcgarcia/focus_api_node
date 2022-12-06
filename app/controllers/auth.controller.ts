@@ -3,7 +3,7 @@ import HttpCode from '../../configs/httpCode';
 import { Inject, Service } from 'typedi';
 import UserService from '../services/user.service';
 import AuthService from '../services/auth.service';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from '../dto/auth/create-user.dto';
 import { User } from '../models';
 
 @Service()
