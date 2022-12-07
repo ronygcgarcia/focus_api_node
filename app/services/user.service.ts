@@ -54,7 +54,7 @@ export default class UserService  {
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    const { email, password, profiles, first_name: firstName, last_name: lastName } = createUserDto;
+    const { email, password, profile_id: profileId, first_name: firstName, last_name: lastName } = createUserDto;
     const connection = this.db;
     const transaction = await connection.transaction();  
 
@@ -66,10 +66,7 @@ export default class UserService  {
     const emailExist = await this.getUserByEmail(email);
     if (emailExist) throw new UnprocessableEntityException('This email has been taken');
     try {
-      
-      if (profiles) {
-        userProfiles = await Promise.all(profiles.map((perfil) => this.profileService.getPerfil(perfil)));
-      }
+      const profileUser = await this.profileService.getPerfil(profileId);
 
       const user = await this.userRepository.create({
         first_name: firstName,
@@ -78,7 +75,7 @@ export default class UserService  {
         password: passwordCrypt,
       }, { transaction });
       
-      if (profiles) await user.$add('profiles', profiles, { transaction });
+      await user.$add('profiles', profileUser, { transaction });
 
       await transaction.commit();
 
