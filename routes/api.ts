@@ -14,12 +14,12 @@ import { LoginDto } from '../app/dto/auth/login.dto';
 
 const router = Router();
 router.post('/v1/login', validation(LoginDto), Call(AuthController, 'login'));
-router.use('/v1/permissions', routesPermissions);
+router.use('/v1/permissions', [Auth], routesPermissions);
 router.use('/v1/users', [Auth], routesUser);
 router.get('/v1/routes', [Auth], Call(RouteController, 'index'));
 router.use('/v1/books', [Auth], routesBooks);
 router.use('/v1/checkouts', [Auth], routesCheckout);
-router.use('/v1/genres', routesGenres);
-router.use('/v1/profiles', routesProfile);
+router.use('/v1/genres', [Auth], routesGenres);
+router.use('/v1/profiles', [Auth], routesProfile);
 
 export default router;

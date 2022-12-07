@@ -27,9 +27,7 @@ export class CreateUserDto {
   @IsDefined()
     last_name: string;
 
-  @IsNumber({}, { each: true })
-  @IsArray()
-  @IsOptional()
-  @IsPositive({ each: true })
-    profiles?: number[];
+  @IsNumber()
+  @IsDefined()
+    profile_id: number;
 }
