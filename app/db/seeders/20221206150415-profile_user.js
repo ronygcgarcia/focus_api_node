@@ -18,6 +18,9 @@ module.exports = {
         },
       ],
     );
+
+
+    await queryInterface.sequelize.query('ALTER SEQUENCE profiles_users_id_seq RESTART WITH 3;');
   },
 
   async down(queryInterface, Sequelize) {
