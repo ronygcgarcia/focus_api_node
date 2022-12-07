@@ -15,7 +15,7 @@ export default class Main {
     this.server.start();
     this.db = new Database();
     this.routes();
-    this.ExceptionConfig();
+    this.server.app.use(Handler.handle);
   }
 
   routes() {
@@ -23,9 +23,5 @@ export default class Main {
     this.server.app.all('*', () => {
       throw new NotFoundException();
     });
-  }
-
-  ExceptionConfig() {
-    this.server.app.use(Handler.handle);
   }
 }
