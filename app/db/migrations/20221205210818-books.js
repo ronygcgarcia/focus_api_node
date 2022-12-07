@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
       },
       title: {
-        type: psql.Sequelize.STRING(30),
+        type: psql.Sequelize.STRING,
         allowNull: false,
       },
       description: {
