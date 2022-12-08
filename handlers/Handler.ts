@@ -26,6 +26,7 @@ export default class Handler {
 
     return {
       message: 'Has been ocurred an error',
+      stack: err.description,
     };
   }
 
