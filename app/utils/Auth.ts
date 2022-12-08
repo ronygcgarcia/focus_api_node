@@ -6,7 +6,7 @@ export default class Auth {
     user?: IUser  
   }, 
   secretKey: string, 
-  expire: string = process.env.JWT_EXPIRATION_TIME as string) {
+  expire: string = process.env.JWT_EXPIRATION_TIME || '60m') {
     return new Promise((resolve, reject) => {
       jwt.sign(PAYLOAD, secretKey, {
         expiresIn: expire,
