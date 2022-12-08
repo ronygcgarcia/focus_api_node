@@ -19,7 +19,7 @@ const Auth = async (req: Request, res: Response, next: NextFunction) => {
 
     const token = authorization.replace('Bearer ', '');
 
-    const { user } = jwt.verify(token, process.env.SECRET_KEY as Secret) as ITokenPayload;
+    const { user } = jwt.verify(token, process.env.SECRET_KEY || 'clave_secreta') as ITokenPayload;
 
     const usuarioService = Container.get(UsuarioService);
     const userResult = await usuarioService.getUser(user.id);

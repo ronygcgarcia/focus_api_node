@@ -33,7 +33,7 @@ export default class AuthService  {
       user: userInfo,
     };
 
-    const secretKey: string = process.env.SECRET_KEY || '';
+    const secretKey: string = process.env.SECRET_KEY || 'clave_secreta';
     const response = {
       token: await Auth.createToken(token, secretKey),
     };
