@@ -8,6 +8,7 @@ import { CreateUserDto } from '../dto/auth/create-user.dto';
 import Database from '../nucleo/Database';
 import bcrypt from 'bcryptjs';
 import UnprocessableEntityException from '../../handlers/UnprocessableEntityException';
+import { Op } from 'sequelize';
 
 @Service()
 export default class UserService  {
@@ -46,7 +47,9 @@ export default class UserService  {
   async getUserByEmail(email: string) {
     const user = await this.userRepository.findOne({
       where: {
-        email,
+        email: {
+          [Op.iLike]: email,
+        },
       },
     });
 

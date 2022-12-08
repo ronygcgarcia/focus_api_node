@@ -4,9 +4,6 @@ import { Profile, User } from '../models';
 import { Repository } from 'sequelize-typescript';
 import { Service } from 'typedi';
 import InjectRepository from '../decorators/inject-repository';
-import BadRequestException from '../../handlers/InternalServerException';
-import NotFoundException from '../../handlers/NotFoundException';
-import IUser from '../interfaces/IUser';
 import NoAuthException from '../../handlers/NoAuthException';
 import Auth from '../utils/Auth';
 
