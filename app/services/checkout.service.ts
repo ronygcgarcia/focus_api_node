@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import { plainToClass } from 'class-transformer';
 import { Repository } from 'sequelize-typescript';
 import { Inject, Service } from 'typedi';
 import InjectRepository from '../decorators/inject-repository';

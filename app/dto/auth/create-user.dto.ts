@@ -1,9 +1,6 @@
 import {
   IsString,
   IsNumber,
-  IsOptional,
-  IsPositive,
-  IsArray,
   IsEmail,
   IsDefined,
 } from 'class-validator';
