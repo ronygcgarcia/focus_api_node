@@ -20,7 +20,9 @@ export default class BookService  {
   private checkoutRepository: Repository<Checkout>;
 
   async index(query: BookIndexDto) {
-    const filter: BookIndexDto = plainToClass(BookIndexDto, query);
+    const filter: BookIndexDto = plainToClass(BookIndexDto, query, {
+      exposeUnsetFields: false,
+    });
     const books = await this.bookRepository.findAll({
       where: {
         ...filter,

@@ -9,18 +9,24 @@ export class BookIndexDto {
     
   @IsString()
   @Expose()
-  @Transform(({ value }) => ({
-    [Op.iLike]: value ? `%${value}%` : '%%',
-  }))
+  @Transform(({ value }) => {
+    if (!value) return undefined;
+    return {
+      [Op.iLike]: `%${value?.split(' ').join('%')}%`,
+    };
+  })
     title?: {
     [Op.iLike]: string
   };
     
   @IsString()
   @Expose()
-  @Transform(({ value }) => ({
-    [Op.iLike]: value ? `%${value}%` : '%%',
-  }))
+  @Transform(({ value }) => {
+    if (!value) return undefined;
+    return {
+      [Op.iLike]: `%${value?.split(' ').join('%')}%`,
+    };
+  })
     author?: {
     [Op.iLike]: string
   };
