@@ -44,7 +44,7 @@ export default class Handler {
     } = {
       message,
     };
-    if (process.env.APP_DEBUG === 'true') response.stack = err.stack;
+    response.stack = err.stack;
     return res.status(err.statusCode || HttpCode.HTTP_INTERNAL_SERVER_ERROR).json(response);
   }
 }
