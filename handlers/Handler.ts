@@ -18,21 +18,15 @@ export default class Handler {
       }));
     }
 
-    if (err.name === 'SequelizeForeignKeyConstraintError') {
-      return {
-        message:
-          'No se puede eliminar uno o más registros debido a que tienen acciones asociadas al sistema',
-      };
-    }
-
     if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
       return {
-        message: 'No autenticado',
+        message: 'Unauthorized',
       };
     }
 
     return {
-      message: 'Ocurrio un error intentelo mas tarde',
+      message: 'Has been ocurred an error',
+      stack: err.description,
     };
   }
 
@@ -40,7 +34,7 @@ export default class Handler {
     return error.isOperational;
   }
 
-  static handle(err: any, req: Request, res: Response) {
+  static handle(err: any, req: Request, res: Response, next: NextFunction) {
     let message = 'Has been ocurred an error';
     if (err.statusCode) message = err.description;
     if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') return res.status(HttpCode.HTTP_UNAUTHORIZED).json({ message: 'Unauthorized', stack:  err.stack });

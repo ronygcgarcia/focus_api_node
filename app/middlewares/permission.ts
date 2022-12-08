@@ -8,7 +8,7 @@ const permission = (permissionName: string) => async (req: Request, res: Respons
   console.log(valid);
   
   if (valid) next();
-  else Handler.handle(new ForbiddenException(), req, res);
+  else Handler.handle(new ForbiddenException(), req, res, next);
 };
 
 export default permission;
